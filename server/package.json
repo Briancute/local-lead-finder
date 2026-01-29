@@ -1,0 +1,28 @@
+{
+    "name": "local-lead-finder-server",
+    "version": "1.0.0",
+    "description": "Backend server for Local Lead Finder SaaS",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "node --watch server.js"
+    },
+    "keywords": [
+        "lead-generation",
+        "google-maps",
+        "saas"
+    ],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@googlemaps/google-maps-services-js": "^3.3.42",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^9.1.5",
+        "nodemailer": "^7.0.13"
+    }
+}

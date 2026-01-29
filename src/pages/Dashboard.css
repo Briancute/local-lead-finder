@@ -1,0 +1,381 @@
+/* ===== SHARED DASHBOARD LAYOUT (MONERA STYLE) ===== */
+:root {
+    --bg-deep: #0A0A0B;
+    --bg-card: #121214;
+    --border-glass: rgba(255, 255, 255, 0.05);
+    --text-monera: #F0F0F0;
+    --text-muted-monera: #888888;
+    --accent-purple: #B666D2;
+    /* More pinkish purple from image */
+    --accent-lime: #C0FF33;
+    /* Lime green from Monera logo */
+    --accent-green: #39C16C;
+    --accent-red: #FF5757;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-deep);
+    color: var(--text-monera);
+}
+
+/* Sidebar Styling */
+.dashboard-sidebar {
+    width: 280px;
+    background: #000;
+    border-right: 1px solid var(--border-glass);
+    display: flex;
+    flex-direction: column;
+    padding: 32px 0;
+    transition: all 0.3s ease;
+}
+
+.sidebar-brand-monera {
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+}
+
+.logo-circle {
+    width: 32px;
+    height: 32px;
+    background: var(--accent-lime);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(192, 255, 51, 0.4);
+}
+
+.logo-icon-svg {
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.logo-text-monera {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.sidebar-nav-v2 {
+    flex: 1;
+    padding: 0 16px;
+}
+
+.nav-section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted-monera);
+    letter-spacing: 1px;
+    padding: 0 16px;
+    margin-bottom: 16px;
+}
+
+.nav-item-v2 {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-muted-monera);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-bottom: 4px;
+}
+
+.nav-item-v2:hover,
+.nav-item-v2.active {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.nav-item-v2.active .nav-icon-v2 {
+    color: var(--accent-purple);
+}
+
+/* Main Content Area */
+.dashboard-main-monera {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.monera-top-header {
+    height: 80px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.monera-top-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.user-profile-monera {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 6px 16px 6px 6px;
+    border-radius: 999px;
+    border: 1px solid var(--border-glass);
+    cursor: pointer;
+}
+
+.profile-initials {
+    width: 32px;
+    height: 32px;
+    background: #23232A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.profile-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.content-scroll-area {
+    padding: 40px;
+    overflow-y: auto;
+    flex: 1;
+    scroll-behavior: smooth;
+}
+
+@media (max-width: 1024px) {
+    .content-scroll-area {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-scroll-area {
+        padding: 16px;
+    }
+}
+
+.sidebar-footer-v2 {
+    padding: 0 16px;
+}
+
+.help-card-monera {
+    background: rgba(182, 102, 210, 0.05);
+    border: 1px solid rgba(182, 102, 210, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+}
+
+.help-card-monera h4 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.help-card-monera p {
+    font-size: 0.8rem;
+    color: var(--text-muted-monera);
+    margin-bottom: 16px;
+}
+
+/* Premium Button Base (Linear Aesthetic) */
+.btn-linear {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-linear:hover {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btn-linear:active {
+    transform: translateY(0);
+}
+
+.btn-linear.primary {
+    background: linear-gradient(180deg, var(--accent-purple) 0%, rgba(182, 102, 210, 0.8) 100%);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-linear.primary:hover {
+    background: linear-gradient(180deg, rgba(200, 120, 230, 1) 0%, var(--accent-purple) 100%);
+    box-shadow: 0 0 20px rgba(182, 102, 210, 0.3);
+}
+
+/* Shared Glass Component */
+.glass-card-v2 {
+    background: #121214;
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive & Mobile Support */
+.monera-mobile-header {
+    display: none;
+    height: 60px;
+    background: #000;
+    padding: 0 20px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-glass);
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+}
+
+.monera-mobile-header h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.logo-circle-sm {
+    width: 28px;
+    height: 28px;
+    background: var(--accent-lime);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #000;
+}
+
+.menu-toggle-v2 {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* AI Credits Micro Card */
+.credits-micro-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid var(--border-glass);
+    margin-bottom: 16px;
+}
+
+.micro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.7rem;
+    color: var(--text-muted-monera);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.credit-pill {
+    background: var(--accent-purple);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+}
+
+.micro-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.micro-bar-fill {
+    height: 100%;
+    background: var(--accent-purple);
+    box-shadow: 0 0 10px rgba(182, 102, 210, 0.5);
+}
+
+.micro-limit {
+    font-size: 0.7rem;
+    color: var(--text-muted-monera);
+    display: block;
+    text-align: right;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+    .monera-mobile-header {
+        display: flex;
+    }
+
+    .desktop-only {
+        display: none !important;
+    }
+
+    .dashboard-sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        z-index: 1200;
+        background: #000;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 280px;
+    }
+
+    .dashboard-sidebar.open {
+        left: 0;
+    }
+
+    .dashboard-main-monera {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    .content-scroll-area {
+        padding: 20px;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1150;
+        backdrop-filter: blur(4px);
+    }
+}
+
+@media (max-width: 768px) {
+    .monera-top-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .content-scroll-area {
+        padding: 16px;
+    }
+}
