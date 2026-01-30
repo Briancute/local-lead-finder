@@ -1,5 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 
+#root,
+body,
+html,
+.app,
+.content-scroll-area,
+.dashboard-overview-monera {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
+  position: relative !important;
+  display: block !important;
+}
+
+.dashboard-container,
+.dashboard-main-monera {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* ===== CSS VARIABLES (DESIGN SYSTEM) ===== */
 :root {
   /* Linear-inspired Palette */
@@ -53,7 +78,6 @@
 
 html {
   scroll-behavior: initial;
-  /* Controlled by GSAP/SmoothScroll if added later */
 }
 
 body {
@@ -249,7 +273,8 @@ textarea:focus {
 }
 
 .container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 24px;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 40px !important;
 }

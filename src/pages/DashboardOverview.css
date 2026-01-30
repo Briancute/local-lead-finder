@@ -1,10 +1,15 @@
 /* ===== MONERA OVERVIEW STYLES ===== */
 
 .dashboard-overview-monera {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0 32px 32px 32px;
-    /* Tightened from 40px */
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    /* Force block to prevent flex centering */
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
 }
 
 @media (max-width: 1024px) {
@@ -22,15 +27,13 @@
 /* Stats Strip */
 .stats-strip-monera {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 16px;
-    /* Tightened from 20px */
     margin-bottom: 24px;
-    /* Reduced from 32px */
 }
 
 .monera-stat-mini {
-    padding: 24px;
+    padding: 20px;
     border-radius: 20px;
 }
 
@@ -70,18 +73,29 @@
     background: rgba(255, 87, 87, 0.1);
 }
 
-/* Charts Area */
 .monera-charts-row {
     display: grid;
-    grid-template-columns: 2fr 1.2fr;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
-    margin-bottom: 32px;
+    /* Reduced gap */
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .monera-charts-row {
+        grid-template-columns: 1fr;
+    }
 }
 
 .monera-main-chart,
 .monera-pie-chart {
-    padding: 32px;
+    padding: 24px;
+    /* Reduced from 32px */
     border-radius: 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .chart-header {
@@ -127,11 +141,12 @@
 }
 
 .chart-visual-mockup {
-    height: 300px;
+    height: 450px;
+    /* Ultra Scaled height */
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 
 .chart-col {
@@ -143,9 +158,10 @@
 }
 
 .chart-bar-glow {
-    width: 20px;
+    width: 32px;
+    /* Wider bars to fill space better */
     background: rgba(182, 102, 210, 0.2);
-    border-radius: 10px;
+    border-radius: 16px;
     position: relative;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -199,7 +215,8 @@
 
 /* Pie Chart Mockup */
 .pie-visual-mockup {
-    height: 250px;
+    height: 400px;
+    /* Ultra Scaled height */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -207,8 +224,9 @@
 }
 
 .pie-circle {
-    width: 180px;
-    height: 180px;
+    width: 320px;
+    /* Ultra Scaled */
+    height: 320px;
     border-radius: 50%;
     position: relative;
     background: conic-gradient(var(--accent-purple) 0% 13%,
@@ -282,10 +300,16 @@
     background: #444;
 }
 
-/* Table Section */
 .monera-table-section {
-    padding: 32px;
+    padding: 24px;
+    /* Reduced from 32px */
     border-radius: 24px;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-glass) transparent;
+    box-sizing: border-box;
 }
 
 .table-header {
@@ -309,8 +333,7 @@
     display: flex;
     gap: 12px;
     align-items: center;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    flex-wrap: nowrap;
 }
 
 .search-pill {
@@ -364,98 +387,86 @@
 }
 
 .monera-table {
-    width: 100%;
+    width: 100% !important;
     border-collapse: collapse;
-    table-layout: fixed;
-    /* Crucial for consistency */
+    table-layout: fixed !important;
+    /* Force rigid column control */
 }
 
 .monera-table th {
     color: var(--text-muted-monera);
     font-size: 0.65rem;
-    /* Slightly smaller for precision */
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    /* Increased for premium look */
     padding-bottom: 16px;
     border-bottom: 1px solid var(--border-glass);
     white-space: nowrap;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .monera-table th,
 .monera-table td {
-    padding: 16px 16px 16px 0;
-    /* Reduced padding from 24px */
+    padding: 12px 14px;
+    /* Increased horizontal padding to prevent overlap */
     text-align: left;
-}
-
-.monera-table th:last-child,
-.monera-table td:last-child {
-    padding-right: 0;
-    text-align: right;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .monera-table td {
-    font-size: 0.85rem;
-    /* Slightly smaller font */
+    font-size: 0.825rem;
     color: var(--text-monera);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
     vertical-align: middle;
 }
 
-/* Proportional Column Control */
+.cell-content {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+/* Width breakdown for Full Width (Total 100%) - 7 Columns Logic */
 .monera-table th:nth-child(1),
 .monera-table td:nth-child(1) {
-    width: 22%;
+    width: 22% !important;
 }
 
 .monera-table th:nth-child(2),
 .monera-table td:nth-child(2) {
-    width: 14%;
+    width: 12% !important;
 }
 
 .monera-table th:nth-child(3),
 .monera-table td:nth-child(3) {
-    width: 12%;
+    width: 12% !important;
 }
 
 .monera-table th:nth-child(4),
 .monera-table td:nth-child(4) {
-    width: 28%;
+    width: 24% !important;
 }
 
 .monera-table th:nth-child(5),
 .monera-table td:nth-child(5) {
-    width: 8%;
+    width: 10% !important;
 }
 
 .monera-table th:nth-child(6),
 .monera-table td:nth-child(6) {
-    width: 12%;
-    text-align: center;
+    width: 12% !important;
 }
 
 .monera-table th:nth-child(7),
 .monera-table td:nth-child(7) {
-    width: 4%;
-}
-
-.address-cell {
-    white-space: normal;
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    color: var(--text-muted-monera);
-}
-
-.amt-cell {
-    font-weight: 500;
-    /* More elegant than 700 */
-    color: #fff;
+    width: 60px !important;
+    text-align: right;
 }
 
 .monera-table tbody tr:hover {
@@ -499,11 +510,13 @@
 }
 
 /* Responsive */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
     .stats-strip-monera {
         grid-template-columns: repeat(2, 1fr);
     }
+}
 
+@media (max-width: 1200px) {
     .monera-charts-row {
         grid-template-columns: 1fr;
     }

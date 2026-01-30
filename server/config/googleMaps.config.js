@@ -154,10 +154,13 @@ export const searchPlaces = async (query, pageToken = null) => {
             params.pagetoken = pageToken;
         } else {
             params.query = query;
+            // Bias results towards the Philippines
+            params.region = 'ph';
         }
 
         const response = await googleMapsClient.textSearch({
             params,
+            region: 'ph', // Explicitly set region bias
             timeout: 10000
         });
 

@@ -189,28 +189,40 @@ export const saveLead = async (req, res) => {
  */
 export const getLeads = async (req, res) => {
     try {
-        const { status, search } = req.query;
+        const { status, search, page = 1, limit = 10 } = req.query;
+        const skip = (parseInt(page) - 1) * parseInt(limit);
+        const pageSize = parseInt(limit);
 
         let leads;
+        let total;
 
         if (usingMongo()) {
             const query = { user_id: req.user.userId };
 
-            if (status) query.status = status;
+            if (status && status !== 'All') query.status = status;
             if (search) query.business_name = { $regex: search, $options: 'i' };
 
-            leads = await Lead.find(query).sort({ createdAt: -1 });
+            total = await Lead.countDocuments(query);
+            leads = await Lead.find(query)
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(pageSize);
         } else {
             const query = { user_id: req.user.userId };
 
-            if (status) query.status = status;
+            if (status && status !== 'All') query.status = status;
             if (search) query.business_name = `%${search}%`;
 
-            leads = await inMemoryDB.findLeads(query);
+            const allLeads = await inMemoryDB.findLeads(query);
+            total = allLeads.length;
+            leads = allLeads.slice(skip, skip + pageSize);
         }
 
         res.json({
             leads,
+            total,
+            page: parseInt(page),
+            pages: Math.ceil(total / pageSize),
             count: leads.length
         });
     } catch (error) {

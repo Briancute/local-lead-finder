@@ -145,7 +145,7 @@ const LeadSearch = () => {
                                 type="text"
                                 id="location"
                                 className="input"
-                                placeholder="e.g., Beverly Hills, CA or London, UK"
+                                placeholder="e.g., Manila, Quezon City, or Makati"
                                 value={searchForm.location}
                                 onChange={(e) => setSearchForm({ ...searchForm, location: e.target.value })}
                             />
@@ -266,10 +266,10 @@ const LeadSearch = () => {
                     <div className="search-examples">
                         <strong>Intelligence Suggestions:</strong>
                         <ul>
-                            <li>"Roofing contractors in Austin, TX"</li>
-                            <li>"Boutique hotels in Bali"</li>
-                            <li>"E-commerce agencies in London"</li>
-                            <li>"Private clinics in Dubai"</li>
+                            <li>"HVAC repair in Manila"</li>
+                            <li>"Dental clinics in Quezon City"</li>
+                            <li>"BPO companies in Makati"</li>
+                            <li>"Restaurants in BGC, Taguig"</li>
                         </ul>
                     </div>
                 </div>

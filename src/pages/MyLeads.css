@@ -21,18 +21,21 @@
 
 .leads-table th {
     background: rgba(255, 255, 255, 0.03);
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1rem;
     color: var(--text-dim);
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     letter-spacing: 0.05em;
     border-bottom: 2px solid var(--glass-border);
+    white-space: normal;
+    /* Allow wrapping */
+    vertical-align: bottom;
+    line-height: 1.2;
 }
 
 .leads-table td {
-    padding: 1rem 1.25rem;
-    /* Reduced from 1.25rem 1.5rem */
+    padding: 1rem 1rem;
     border-bottom: 1px solid var(--glass-border);
     color: var(--text-main);
     font-size: 0.85rem;
@@ -45,43 +48,37 @@
     width: 25%;
 }
 
-/* Business Name */
 .leads-table th:nth-child(2),
 .leads-table td:nth-child(2) {
     width: 25%;
 }
 
-/* Address */
 .leads-table th:nth-child(3),
 .leads-table td:nth-child(3) {
     width: 20%;
 }
 
-/* Contact Info */
 .leads-table th:nth-child(4),
 .leads-table td:nth-child(4) {
-    width: 10%;
+    width: 8%;
     text-align: center;
 }
 
-/* Rating */
 .leads-table th:nth-child(5),
 .leads-table td:nth-child(5) {
-    width: 15%;
+    width: 14%;
     text-align: center;
 }
 
-/* Status */
 .leads-table th:nth-child(6),
 .leads-table td:nth-child(6) {
-    width: 5%;
+    width: 8%;
     text-align: center;
 }
 
 /* Actions */
 
 .address-cell-v2 {
-    max-width: 280px;
     white-space: normal;
     line-height: 1.4;
     display: -webkit-box;
@@ -226,4 +223,57 @@
     .status-select-wrapper {
         width: 100%;
     }
+}
+
+/* Pagination Controls */
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid var(--glass-border);
+}
+
+.pagination-info {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.pagination-info strong {
+    color: var(--text-main);
+}
+
+.pagination-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.pagination-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    color: var(--text-main);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-weight: 500;
 }

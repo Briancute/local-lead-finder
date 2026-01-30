@@ -13,16 +13,41 @@ const MyLeads = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState('All');
     const [exporting, setExporting] = useState(false);
+    const [pagination, setPagination] = useState({
+        page: 1,
+        pages: 1,
+        total: 0,
+        limit: 10
+    });
+    const [debouncedSearch, setDebouncedSearch] = useState('');
 
     useEffect(() => {
-        fetchLeads();
-    }, []);
+        const timer = setTimeout(() => {
+            setDebouncedSearch(searchTerm);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [searchTerm]);
 
-    const fetchLeads = async () => {
+    useEffect(() => {
+        fetchLeads(1);
+    }, [filterStatus, debouncedSearch]);
+
+    const fetchLeads = async (page = 1) => {
         try {
             setLoading(true);
-            const data = await leadsAPI.getAll();
+            const data = await leadsAPI.getAll({
+                status: filterStatus,
+                search: debouncedSearch,
+                page,
+                limit: pagination.limit
+            });
             setLeads(data.leads || []);
+            setPagination({
+                page: data.page,
+                pages: data.pages,
+                total: data.total,
+                limit: data.count || pagination.limit
+            });
 
             setTimeout(() => {
                 gsap.from('.lead-row', {
@@ -175,7 +200,7 @@ const MyLeads = () => {
                                         <p style={{ marginTop: '1rem', color: 'var(--text-dim)' }}>Loading your vault...</p>
                                     </td>
                                 </tr>
-                            ) : filteredLeads.length === 0 ? (
+                            ) : leads.length === 0 ? (
                                 <tr>
                                     <td colSpan="6" style={{ padding: '60px', textAlign: 'center', color: 'var(--text-dim)' }}>
                                         <FiSearch size={40} style={{ opacity: 0.3, marginBottom: '1rem' }} />
@@ -183,7 +208,7 @@ const MyLeads = () => {
                                     </td>
                                 </tr>
                             ) : (
-                                filteredLeads.map((lead) => (
+                                leads.map((lead) => (
                                     <tr key={lead._id} className="lead-row">
                                         <td>
                                             <div style={{ fontWeight: 700, color: 'var(--text-main)', fontSize: '1.05rem' }}>{lead.business_name}</div>
@@ -264,6 +289,31 @@ const MyLeads = () => {
                         </tbody>
                     </table>
                 </div>
+
+                {pagination.pages > 1 && (
+                    <div className="pagination-controls">
+                        <div className="pagination-info">
+                            Showing <strong>{leads.length}</strong> of <strong>{pagination.total}</strong> Prospects
+                        </div>
+                        <div className="pagination-buttons">
+                            <button
+                                className="pagination-btn"
+                                disabled={pagination.page === 1 || loading}
+                                onClick={() => fetchLeads(pagination.page - 1)}
+                            >
+                                Previous
+                            </button>
+                            <span className="page-indicator">Page {pagination.page} of {pagination.pages}</span>
+                            <button
+                                className="pagination-btn"
+                                disabled={pagination.page === pagination.pages || loading}
+                                onClick={() => fetchLeads(pagination.page + 1)}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <style dangerouslySetInnerHTML={{

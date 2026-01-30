@@ -154,12 +154,12 @@ const DashboardOverview = () => {
                 <table className="monera-table">
                     <thead>
                         <tr>
-                            <th>Company Name</th>
-                            <th>Phone</th>
-                            <th>Category</th>
-                            <th>Address</th>
-                            <th>Rating</th>
-                            <th>Status</th>
+                            <th><div className="cell-content">COMPANY NAME</div></th>
+                            <th><div className="cell-content">PHONE</div></th>
+                            <th><div className="cell-content">CATEGORY</div></th>
+                            <th><div className="cell-content">ADDRESS</div></th>
+                            <th><div className="cell-content">RATING</div></th>
+                            <th><div className="cell-content">STATUS</div></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -171,11 +171,11 @@ const DashboardOverview = () => {
                         ) : (
                             leads.slice(0, 5).map((lead, i) => (
                                 <tr key={lead._id || i}>
-                                    <td className="amt-cell">{lead.business_name}</td>
-                                    <td>{lead.phone || 'N/A'}</td>
-                                    <td>{lead.category || 'Lead'}</td>
-                                    <td className="address-cell">{lead.address}</td>
-                                    <td>⭐ {lead.rating || 'N/A'}</td>
+                                    <td className="amt-cell"><div className="cell-content">{lead.business_name}</div></td>
+                                    <td><div className="cell-content">{lead.phone || 'N/A'}</div></td>
+                                    <td><div className="cell-content">{lead.category || 'Lead'}</div></td>
+                                    <td className="address-cell"><div className="cell-content">{lead.address}</div></td>
+                                    <td><div className="cell-content">⭐ {lead.rating || 'N/A'}</div></td>
                                     <td><span className={`status-pill ${lead.status?.toLowerCase() === 'contacted' ? 'scheduled' : lead.status?.toLowerCase() === 'new' ? 'new' : 'completed'}`}>{lead.status || 'New'}</span></td>
                                     <td><FaEllipsisV className="more-icon" /></td>
                                 </tr>
