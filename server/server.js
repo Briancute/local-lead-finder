@@ -1,12 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import connectDB from './config/db.config.js';
+import connectDB, { isMongoDBConnected } from './config/db.config.js';
 import authRoutes from './routes/auth.routes.js';
 import leadsRoutes from './routes/leads.routes.js';
 import templateRoutes from './routes/template.routes.js';
 import emailRoutes from './routes/email.routes.js';
 import inMemoryDB from './config/inMemoryDB.js';
+import User from './models/User.model.js';
+import bcrypt from 'bcryptjs';
 
 dotenv.config({ path: '../.env' });
 
@@ -19,6 +21,7 @@ const allowedOrigins = [
     'http://localhost:5174',
     'http://127.0.0.1:5173',
     'http://127.0.0.1:5174',
+    'https://glowing-starlight-123.netlify.app',
     process.env.CLIENT_URL
 ].filter(Boolean);
 
@@ -26,7 +29,12 @@ app.use(cors({
     origin: function (origin, callback) {
         // allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
+
+        // Relaxed check for development and known netlify domain
+        const isAllowed = allowedOrigins.some(o => origin.startsWith(o));
+
+        if (!isAllowed) {
+            console.log('🚫 CORS Refused Origin:', origin);
             var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
             return callback(new Error(msg), false);
         }
@@ -84,9 +92,30 @@ const startServer = async () => {
             console.log('   2. Check MongoDB Atlas IP whitelist includes 0.0.0.0/0');
             console.log('   3. Verify MongoDB cluster is active');
             console.log('');
+        }
 
-            // Initialize demo user for in-memory database
+        // ALWAYS ensure demo user exists for evaluation
+        try {
             await inMemoryDB.initDemoUser();
+
+            if (isMongoDBConnected()) {
+                // If Mongo is connected, also ensure demo user exists there
+                const existing = await User.findOne({ email: 'demo@leadfinder.com' });
+                if (!existing) {
+                    const salt = await bcrypt.genSalt(10);
+                    const hashedPassword = await bcrypt.hash('demo123', salt);
+                    await User.create({
+                        name: 'Demo User',
+                        email: 'demo@leadfinder.com',
+                        password_hash: hashedPassword,
+                        api_quota_used: 0,
+                        api_quota_limit: 1000
+                    });
+                    console.log('✅ Demo user seeded into MongoDB');
+                }
+            }
+        } catch (initErr) {
+            console.error('⚠️ User seeding warning:', initErr.message);
         }
 
         app.listen(PORT, () => {
